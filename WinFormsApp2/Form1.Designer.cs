@@ -100,24 +100,60 @@ namespace WinFormsApp2
             price_TextBox.TextChanged += UserName_TextBox_TextChanged;
             this.Controls.Add(price_TextBox);
 
-            this.button.Location = new System.Drawing.Point(120, 300);
+            this.button.Location = new System.Drawing.Point(40, 300);
             this.button.Text = "Рассчитать";
             this.button.Enabled = false;
             this.button.BackColor = System.Drawing.Color.FromArgb(72, 76, 127);
             this.button.ForeColor = System.Drawing.Color.FromArgb(241, 212, 212);
-            this.button.Font = new Font("Times New Roman", 15, FontStyle.Bold, GraphicsUnit.Pixel);
+            this.button.Font = new Font("Times New Roman", 18, FontStyle.Bold, GraphicsUnit.Pixel);
             this.button.Size = new Size(150, 50);
             this.button.Click += (sender, e) =>
             { 
-                length = Convert.ToDouble(how_TextBox.Text);    
-                avFuelConsumption = Convert.ToDouble(average_TextBox.Text);
-                price = Convert.ToDouble(price_TextBox.Text);
-                double FuelNeed = ((avFuelConsumption * length) / 100);
-                need_label2.Text = FuelNeed.ToString();
-                double costFuel = FuelNeed * price;
-                cost_label2.Text = costFuel.ToString();
+                if(!double.TryParse(how_TextBox.Text, out length) ||
+                !double.TryParse(average_TextBox.Text, out avFuelConsumption) ||
+                !double.TryParse(price_TextBox.Text, out price))
+                {
+                    color2.Text = "Некорректный ввод";
+                    color2.Font = new Font("Times New Roman", 20, FontStyle.Bold, GraphicsUnit.Pixel);
+                    color2.ForeColor = Color.Black;
+                }
+                else
+                {
+                    length = Convert.ToDouble(how_TextBox.Text);    
+                    avFuelConsumption = Convert.ToDouble(average_TextBox.Text);
+                    price = Convert.ToDouble(price_TextBox.Text);
+                    if (length <= 0 || avFuelConsumption <= 0 || price <= 0)
+                    {
+                        color2.Text = "Некорректный ввод \nчисло не может быть меньше 0";
+                        color2.Font = new Font("Times New Roman", 20, FontStyle.Bold, GraphicsUnit.Pixel);
+                        color2.ForeColor = Color.Black;
+                    }
+                    else
+                    {
+                        double FuelNeed = ((avFuelConsumption * length) / 100);
+                        need_label2.Text = FuelNeed.ToString();
+                        double costFuel = FuelNeed * price;
+                        cost_label2.Text = costFuel.ToString();
+                    }
+                }
             };
             this.Controls.Add(this.button);
+
+            
+            this.buttonClear.Location = new System.Drawing.Point(190, 300);
+            this.buttonClear.Text = "Очистить";
+            this.buttonClear.BackColor = System.Drawing.Color.FromArgb(72, 76, 127);
+            this.buttonClear.ForeColor = System.Drawing.Color.FromArgb(241, 212, 212);
+            this.buttonClear.Font = new Font("Times New Roman", 18, FontStyle.Bold, GraphicsUnit.Pixel);
+            this.buttonClear.Size = new Size(150, 50);
+            this.buttonClear.Click += (sender, e) =>
+            {
+                price_TextBox.Clear();
+                average_TextBox.Clear();
+                how_TextBox.Clear();
+            };
+            this.Controls.Add(this.buttonClear);
+
 
             need_label = new Label();
             this.need_label.Text = "Потребуется топлива \n(л)";
@@ -170,6 +206,8 @@ namespace WinFormsApp2
             }
         }
 
+
+
         Label Text_online_label;
         Label color;
         Label how_label;
@@ -184,6 +222,7 @@ namespace WinFormsApp2
         Label need_label2;
         Label cost_label2;
         Button button = new Button();
+        Button buttonClear = new Button(); 
         #endregion
     }
 }
