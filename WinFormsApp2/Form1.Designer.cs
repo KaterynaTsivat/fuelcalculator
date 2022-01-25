@@ -108,8 +108,20 @@ namespace WinFormsApp2
             this.button.Font = new Font("Times New Roman", 18, FontStyle.Bold, GraphicsUnit.Pixel);
             this.button.Size = new Size(150, 50);
             this.button.Click += (sender, e) =>
-            { 
-                if(!double.TryParse(how_TextBox.Text, out length) ||
+            {
+                if (how_TextBox.Text.Contains("."))
+                {
+                    how_TextBox.Text = how_TextBox.Text.Replace(".", ",");
+                }
+                if (average_TextBox.Text.Contains("."))
+                {
+                    average_TextBox.Text = average_TextBox.Text.Replace(".", ",");
+                }
+                if (price_TextBox.Text.Contains("."))
+                {
+                     price_TextBox.Text = price_TextBox.Text.Replace(".", ",");
+                }
+                if (!double.TryParse(how_TextBox.Text, out length) ||
                 !double.TryParse(average_TextBox.Text, out avFuelConsumption) ||
                 !double.TryParse(price_TextBox.Text, out price))
                 {
@@ -153,7 +165,7 @@ namespace WinFormsApp2
                 how_TextBox.Clear();
                 if(color2.Text.Length != 0)
                 {
-                    color2.Text = " "; 
+                    color2.Text = String.Empty; 
                 }
                 if (cost_label2.Text.Length != 0 || need_label2.Text.Length != 0)
                 {
