@@ -151,6 +151,10 @@ namespace WinFormsApp2
                 price_TextBox.Clear();
                 average_TextBox.Clear();
                 how_TextBox.Clear();
+                if(color2.Text.Length != 0)
+                {
+                    color2.Text = " "; 
+                }
             };
             this.Controls.Add(this.buttonClear);
 
