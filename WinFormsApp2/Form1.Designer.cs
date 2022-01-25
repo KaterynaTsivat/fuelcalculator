@@ -155,6 +155,11 @@ namespace WinFormsApp2
                 {
                     color2.Text = " "; 
                 }
+                if (cost_label2.Text.Length != 0 || need_label2.Text.Length != 0)
+                {
+                    cost_label2.Text = String.Empty;
+                    need_label2.Text = String.Empty;
+                }
             };
             this.Controls.Add(this.buttonClear);
 
@@ -170,7 +175,6 @@ namespace WinFormsApp2
 
             need_label2 = new Label();
             this.need_label2.Text = String.Empty;
-                // $"{FuelNeed}";
             this.need_label2.Location = new System.Drawing.Point(250, 375);
             this.need_label2.Size = new System.Drawing.Size(100, 25);
             this.need_label2.BackColor = Color.White;
